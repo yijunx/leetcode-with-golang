@@ -2,24 +2,24 @@ package main
 
 import "fmt"
 
-type ListNode struct {
+type listNode struct {
 	Val  int
-	Next *ListNode
+	Next *listNode
 }
 
-func SliceToListNode(s []int) *ListNode {
-	startingNode := ListNode{Val: s[0]}
+func sliceToListNode(s []int) *listNode {
+	startingNode := listNode{Val: s[0]}
 	node := &startingNode
 	for i, v := range s {
 		if i > 0 {
-			node.Next = &ListNode{Val: v}
+			node.Next = &listNode{Val: v}
 			node = node.Next
 		}
 	}
 	return &startingNode
 }
 
-func PrintListNode(l *ListNode) {
+func printListNode(l *listNode) {
 	fmt.Println("Printing a list node")
 	for {
 		if l == nil {
@@ -30,9 +30,9 @@ func PrintListNode(l *ListNode) {
 	}
 }
 
-func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+func addTwoNumbers(l1 *listNode, l2 *listNode) *listNode {
 
-	startingNode := ListNode{}
+	startingNode := listNode{}
 	mainTravelNode := &startingNode
 	l1TravelNode := l1
 	l2TravelNode := l2
@@ -49,12 +49,12 @@ func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		}
 
 		if extra > 0 || l1TravelNode.Next != nil || l2TravelNode.Next != nil {
-			mainTravelNode.Next = &ListNode{}
+			mainTravelNode.Next = &listNode{}
 			if l1TravelNode.Next == nil {
-				l1TravelNode.Next = &ListNode{}
+				l1TravelNode.Next = &listNode{}
 			}
 			if l2TravelNode.Next == nil {
-				l2TravelNode.Next = &ListNode{}
+				l2TravelNode.Next = &listNode{}
 			}
 
 			l1TravelNode = l1TravelNode.Next
@@ -67,17 +67,15 @@ func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	return &startingNode
 }
 
-// func main() {
-// 	// Input: l1 = [2,4,3], l2 = [5,6,4]
-// 	// Output: [7,0,8]
-// 	// Explanation: 342 + 465 = 807
-// 	s1 := []int{9, 9, 9, 9, 9, 9}
-// 	s2 := []int{9, 9, 9}
+func main() {
+	// Input: l1 = [2,4,3], l2 = [5,6,4]
+	// Output: [7,0,8]
+	// Explanation: 342 + 465 = 807
+	s1 := []int{9, 9, 9, 9, 9, 9}
+	s2 := []int{9, 9, 9}
 
-// 	l1 := SliceToListNode(s1)
-// 	l2 := SliceToListNode(s2)
+	l1 := sliceToListNode(s1)
+	l2 := sliceToListNode(s2)
 
-// 	PrintListNode(l1)
-
-// 	PrintListNode(AddTwoNumbers(l1, l2))
-// }
+	printListNode(addTwoNumbers(l1, l2))
+}

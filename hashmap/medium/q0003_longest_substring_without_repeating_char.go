@@ -45,6 +45,6 @@ func lengthOfLongestSubstring(s string) int {
 	return maxRecord
 }
 
-// func main() {
-// 	fmt.Println(lengthOfLongestSubstring("defiance"))
-// }
+func main() {
+	fmt.Println(lengthOfLongestSubstring("defiance"))
+}
