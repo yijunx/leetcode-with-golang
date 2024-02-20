@@ -1,4 +1,4 @@
-package main
+package medium
 
 // Example 1:
 
@@ -45,6 +45,6 @@ func lengthOfLongestSubstring(s string) int {
 	return maxRecord
 }
 
-func main() {
+func LengthOfLongestSubstring() {
 	fmt.Println(lengthOfLongestSubstring("defiance"))
 }

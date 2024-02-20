@@ -1,4 +1,4 @@
-package main
+package easy
 
 import "fmt"
 
@@ -15,6 +15,6 @@ func twoSum(nums []int, target int) []int {
 	return []int{}
 }
 
-func main() {
+func TwoSum() {
 	fmt.Println(twoSum([]int{1, 2, 3, 4}, 7))
 }
