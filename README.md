@@ -18,3 +18,9 @@ just to practice golang
 2197	 ↗ 	NORTH EAST ARROW
 2198	 ↘ 	SOUTH EAST ARROW
 2199	 ↙ 	SOUTH WEST ARROW
+
+
+⟍
+⟋
+|
+⎯

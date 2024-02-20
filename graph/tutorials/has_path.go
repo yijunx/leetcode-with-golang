@@ -1,11 +1,13 @@
-package main
+package tutorials
 
-import (
-	"fmt"
-	"slices"
-)
+import "fmt"
 
-func hasPathWithBFS(a map[string][]string, src string, dst string) bool {
+// n = # nodes
+// e = # edges (e can be up to n^2, every possible pair of nodes has an edge!)
+// Time: O(e) coz we may travel through all edges
+// Space: O(n) size of our stack/queue
+
+func HasPathWithBFS(a map[string][]string, src string, dst string) bool {
 
 	// lets use bfs
 	// passedNodes := []string{}
@@ -13,12 +15,12 @@ func hasPathWithBFS(a map[string][]string, src string, dst string) bool {
 
 	for {
 		// passedNodes = append(passedNodes, src)
-		nextNodes, ok := a[src]
-		if ok {
-			if slices.Contains(nextNodes, dst) {
+		nextNodes := a[src]
+		for _, v := range nextNodes {
+			if v == dst {
 				return true
 			}
-			queue = append(queue, nextNodes...)
+			queue = append(queue, v)
 		}
 		if len(queue) == 0 {
 			break
@@ -29,20 +31,20 @@ func hasPathWithBFS(a map[string][]string, src string, dst string) bool {
 	return false
 }
 
-func hasPathWithDFSRecursive(a map[string][]string, src string, dst string) bool {
+func HasPathWithDFSRecursive(a map[string][]string, src string, dst string) bool {
 
+	if src == dst {
+		return true
+	}
 	for _, v := range a[src] {
-		if slices.Contains(a[v], dst) {
-			return true
-		}
-		hasPathWithDFSRecursive(a, v, dst)
+		return HasPathWithDFSRecursive(a, v, dst)
 	}
 	return false
 
 }
 
-func main() {
-
+func HasPath() {
+	// get to called by the main.go
 	var adjacencyList map[string][]string = make(map[string][]string)
 
 	adjacencyList["f"] = []string{"g", "i"}
@@ -51,22 +53,13 @@ func main() {
 	adjacencyList["i"] = []string{"g", "k"}
 	adjacencyList["j"] = []string{"i"}
 	adjacencyList["k"] = []string{}
-
-	// this is acyclic
-
 	// f → g → h
 	// ↓ ↗
 	// i ← j
 	// ↓
-	// k
-	fmt.Println(hasPathWithBFS(adjacencyList, "j", "f"))
-	fmt.Println(hasPathWithBFS(adjacencyList, "f", "h"))
+	fmt.Println(HasPathWithBFS(adjacencyList, "j", "f"))
+	fmt.Println(HasPathWithBFS(adjacencyList, "f", "h"))
 
-	fmt.Println(hasPathWithDFSRecursive(adjacencyList, "j", "f"))
-	fmt.Println(hasPathWithDFSRecursive(adjacencyList, "f", "h"))
-
-	// n = # nodes
-	// e = # edges (e can be up to n^2, every possible pair of nodes has an edge!)
-	// Time: O(e) coz we may travel through all edges
-	// Space: O(n) size of our stack/queue
+	fmt.Println(HasPathWithDFSRecursive(adjacencyList, "j", "f"))
+	fmt.Println(HasPathWithDFSRecursive(adjacencyList, "f", "h"))
 }
