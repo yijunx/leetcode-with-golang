@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	graphTutorial.UndirectedCyclicGraphHasPath()
+	graphTutorial.ConnectedComponentsCount()
 }
