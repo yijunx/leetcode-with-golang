@@ -10,7 +10,7 @@ import "fmt"
 
 func hasPathChecksCycleBFS(a map[string][]string, src string, dst string) bool {
 	queue := []string{}
-	visitedNodes := make(map[string]bool)
+	startedFromNodes := make(map[string]bool)
 
 	for {
 
@@ -22,11 +22,11 @@ func hasPathChecksCycleBFS(a map[string][]string, src string, dst string) bool {
 					return true
 				}
 
-				_, ok = visitedNodes[node]
+				_, ok = startedFromNodes[node]
 
 				if !ok {
 					// we have not visited
-					visitedNodes[node] = true
+					startedFromNodes[node] = true
 					queue = append(queue, node)
 				}
 			}
@@ -67,10 +67,50 @@ func hasPathChecksCycleDFSRecursive(a map[string][]string, src string, dst strin
 	return false
 }
 
+func hasPathChecksCycleDFSRecursive2(a map[string][]string, src string, dst string, visitedNodes map[string]bool) bool {
+	fmt.Println("src:", src, "dst", dst)
+	fmt.Println(src, "can go to", a[src])
+	if src == dst {
+		return true
+	}
+
+	// check if visited
+	if _, exists := visitedNodes[src]; exists {
+		return false
+	}
+	// well here golang is so cool, it starts from zero
+	// no need to check if src is in the visited nodes!
+	visitedNodes[src] = true
+
+	for _, v := range a[src] {
+		fmt.Println("we see", v)
+
+		if hasPathChecksCycleDFSRecursive2(a, v, dst, visitedNodes) {
+			return true
+		}
+		// here we cannot do
+		// return hasPathChecksCycleDFSRecursive(a, v, dst, visitedNodes)
+		// because we want to keep the search
+		// if we want to do this, needs to check all paths checked like
+		// hasPathChecksCycleDFSRecursive
+
+	}
+	return false
+}
+
 func hasPathChecksCycleDFS(a map[string][]string, src string, dst string) bool {
 	visitedNodes := make(map[string]int)
 
 	return hasPathChecksCycleDFSRecursive(
+		a, src, dst, visitedNodes,
+	)
+
+}
+
+func hasPathChecksCycleDFS2(a map[string][]string, src string, dst string) bool {
+	visitedNodes := make(map[string]bool)
+
+	return hasPathChecksCycleDFSRecursive2(
 		a, src, dst, visitedNodes,
 	)
 
@@ -138,4 +178,5 @@ func UndirectedCyclicGraphHasPath() {
 
 	fmt.Println(hasPathChecksCycleBFS(adjacencyList, "m", "o"))
 	fmt.Println(hasPathChecksCycleDFS(adjacencyList, "m", "o"))
+	fmt.Println(hasPathChecksCycleDFS2(adjacencyList, "i", "l"))
 }
