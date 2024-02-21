@@ -51,6 +51,8 @@ func hasPathChecksCycleDFSRecursive(a map[string][]string, src string, dst strin
 	}
 
 	fmt.Println("path from", src, "plus 1")
+	// well here golang is so cool, it starts from zero
+	// no need to check if src is in the visited nodes!
 	visitedNodes[src] += 1
 
 	for _, v := range a[src] {
@@ -78,18 +80,23 @@ func edgesToGraph(e [][2]string) map[string][]string {
 	var adjacencyList map[string][]string = make(map[string][]string)
 
 	for _, vs := range e {
-		_, firstExists := adjacencyList[vs[0]]
-		if firstExists {
-			adjacencyList[vs[0]] = append(adjacencyList[vs[0]], vs[1])
-		} else {
-			adjacencyList[vs[0]] = []string{vs[1]}
-		}
-		_, secondExists := adjacencyList[vs[1]]
-		if secondExists {
-			adjacencyList[vs[1]] = append(adjacencyList[vs[1]], vs[0])
-		} else {
-			adjacencyList[vs[1]] = []string{vs[0]}
-		}
+		a, b := vs[0], vs[1]
+		adjacencyList[a] = append(adjacencyList[a], b)
+		adjacencyList[b] = append(adjacencyList[b], a)
+
+		// below code is too python..
+		// _, firstExists := adjacencyList[a]
+		// if firstExists {
+		// 	adjacencyList[a] = append(adjacencyList[a], b)
+		// } else {
+		// 	adjacencyList[a] = []string{b}
+		// }
+		// _, secondExists := adjacencyList[b]
+		// if secondExists {
+		// 	adjacencyList[b] = append(adjacencyList[b], a)
+		// } else {
+		// 	adjacencyList[b] = []string{a}
+		// }
 	}
 
 	return adjacencyList
@@ -105,7 +112,7 @@ func UndirectedCyclicGraphHasPath() {
 		{"o", "n"},
 	}
 	fmt.Println(edges)
-	// first lets turn edges into a graph
+
 	adjacencyList := edgesToGraph(edges)
 	fmt.Println(adjacencyList)
 
