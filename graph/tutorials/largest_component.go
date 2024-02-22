@@ -104,6 +104,8 @@ func LargestComponent() {
 	// | ⟋
 	// 3
 
+	// thus we should return 4
+
 	fmt.Println(adjacencyList)
 	fmt.Println(largestComponentBFS(adjacencyList))
 	fmt.Println(largestComponentDFS(adjacencyList))
