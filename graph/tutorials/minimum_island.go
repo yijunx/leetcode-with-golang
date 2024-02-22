@@ -1,0 +1,5 @@
+package tutorials
+
+func MinimumIsland() {
+
+}

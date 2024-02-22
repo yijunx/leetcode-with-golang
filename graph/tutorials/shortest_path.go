@@ -53,7 +53,7 @@ func shortestPathAnotherWay(g map[string][]string, src string, dst string) int {
 		}
 		srcPos, queue = queue[0], queue[1:]
 	}
-	return 0
+	return -1
 }
 
 func shortestPath(g map[string][]string, src string, dst string) int {
@@ -95,7 +95,7 @@ func shortestPath(g map[string][]string, src string, dst string) int {
 		src, queue = queue[0], queue[1:]
 
 	}
-	return 0
+	return -1
 }
 
 func ShortestPath() {
