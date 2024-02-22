@@ -14,6 +14,48 @@ func transformEdgesToGraph(edges [][2]string) map[string][]string {
 	return graph
 }
 
+func shortestPathAnotherWay(g map[string][]string, src string, dst string) int {
+
+	type positionAndDistance struct {
+		position string
+		distance int
+	}
+	queue := []positionAndDistance{}
+	visitedPositions := map[string]bool{}
+
+	srcPos := positionAndDistance{
+		position: src,
+		distance: 0,
+	}
+
+	for {
+		visitedPositions[srcPos.position] = true
+
+		if srcPos.position == dst {
+			return srcPos.distance
+		}
+
+		for _, neighbor := range g[srcPos.position] {
+			if _, exists := visitedPositions[neighbor]; !exists {
+				// never visit here before
+				queue = append(
+					queue,
+					positionAndDistance{
+						position: neighbor,
+						distance: srcPos.distance + 1,
+					},
+				)
+			}
+		}
+
+		if len(queue) == 0 {
+			break
+		}
+		srcPos, queue = queue[0], queue[1:]
+	}
+	return 0
+}
+
 func shortestPath(g map[string][]string, src string, dst string) int {
 	// return the number of edges
 	// i guess bfs should be the way to go..
@@ -75,4 +117,5 @@ func ShortestPath() {
 	// w ----- v
 
 	fmt.Println(shortestPath(transformEdgesToGraph(edges), "x", "v"))
+	fmt.Println(shortestPathAnotherWay(transformEdgesToGraph(edges), "x", "v"))
 }
