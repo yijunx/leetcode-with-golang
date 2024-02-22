@@ -4,12 +4,12 @@ import (
 	"fmt"
 )
 
-func islandCount(g [][]string) int {
+type location struct {
+	i int
+	j int
+}
 
-	type location struct {
-		i int
-		j int
-	}
+func islandCountBFS(g [][]string) int {
 
 	getNeighborLocs := func(loc location, gridSize int) []location {
 		result := []location{}
@@ -94,16 +94,78 @@ func islandCount(g [][]string) int {
 	return len(landingLocs)
 }
 
+func islandCountDFS(g [][]string) int {
+
+	visitedNodes := map[location]bool{}
+	n, m := len(g), len(g[0])
+	fmt.Println(n, m)
+
+	count := 0
+	for i, row := range g {
+		for j := range row {
+			fmt.Println(i, j)
+			if exploreGridRecursive(g, i, j, visitedNodes) {
+				count += 1
+				fmt.Println("land!", i, j)
+			}
+		}
+	}
+	return count
+}
+
+func exploreGridRecursive(g [][]string, i int, j int, visitedNodes map[location]bool) bool {
+	n, m := len(g), len(g[0])
+	// if this neibor is outside, we return false
+	if i < 0 || i >= n-1 {
+		return false
+	}
+	if j < 0 || j >= m-1 {
+		return false
+	}
+
+	if g[i][j] == "W" {
+		return false
+	}
+
+	if _, exists := visitedNodes[location{i: i, j: j}]; exists {
+		return false
+	}
+	fmt.Println("visisted:", location{i: i, j: j})
+	visitedNodes[location{i: i, j: j}] = true
+
+	exploreGridRecursive(g, i-1, j, visitedNodes)
+	exploreGridRecursive(g, i+1, j, visitedNodes)
+	exploreGridRecursive(g, i, j-1, visitedNodes)
+	exploreGridRecursive(g, i, j+1, visitedNodes)
+
+	return true
+}
+
 func IslandCount() {
 
 	grid := [][]string{
 		{"W", "L", "W", "W", "L", "W"},
 		{"L", "L", "W", "W", "L", "W"},
-		{"W", "L", "W", "W", "w", "W"},
-		{"W", "w", "W", "L", "L", "W"},
+		{"W", "L", "W", "W", "W", "W"},
+		{"W", "W", "W", "L", "L", "W"},
 		{"W", "L", "W", "L", "L", "W"},
 		{"W", "W", "W", "W", "W", "W"},
 	}
 
-	fmt.Println(islandCount(grid))
+	fmt.Println(islandCountBFS(grid))
+	fmt.Println("here comes dfs")
+	fmt.Println(islandCountDFS(grid))
+
+	// i, j := 1, 1
+
+	// neighbors := []location{
+	// 	{i - 1, j},
+	// 	{i, j - 1},
+	// 	{i + 1, j},
+	// 	{i, j + 1},
+	// }
+	// fmt.Println("neighbros are", neighbors)
+	// for _, neighbor := range neighbors {
+	// 	fmt.Println(neighbor)
+	// }
 }
