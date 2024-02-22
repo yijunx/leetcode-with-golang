@@ -78,8 +78,6 @@ func hasPathChecksCycleDFSRecursive2(a map[string][]string, src string, dst stri
 	if _, exists := visitedNodes[src]; exists {
 		return false
 	}
-	// well here golang is so cool, it starts from zero
-	// no need to check if src is in the visited nodes!
 	visitedNodes[src] = true
 
 	for _, v := range a[src] {
