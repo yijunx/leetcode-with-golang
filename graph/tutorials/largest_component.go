@@ -8,7 +8,7 @@ func largestComponentBFS(g map[int][]int) int {
 	maxSize := 0
 
 	for startingNode := range g {
-		_, exists := arrivedAtNodes[startingNode]
+		_, exists := startedFromNodes[startingNode]
 
 		if exists {
 			fmt.Println("we have covered", startingNode)
@@ -70,7 +70,7 @@ func largestComponentDFS(g map[int][]int) int {
 func largestComponentDFSRecursive(g map[int][]int, src int, visitedNodes map[int]bool, startingNode int, traversedNodesCountFromStartingNode map[int]int) bool {
 	_, exists := visitedNodes[src]
 	if exists {
-		fmt.Println("well we visited", src)
+		// fmt.Println("well we visited", src)
 		return false
 	}
 	visitedNodes[src] = true
@@ -84,20 +84,46 @@ func largestComponentDFSRecursive(g map[int][]int, src int, visitedNodes map[int
 	return false
 }
 
+func largestComponentDFSExploreSize(g map[int][]int) int {
+	fmt.Println("this is dfs 2")
+	visitedNodes := map[int]bool{}
+	maxSize := 0
+
+	for node := range g {
+		size := exploreSize(g, node, visitedNodes)
+		maxSize = max(size, maxSize)
+	}
+	return maxSize
+}
+
+func exploreSize(g map[int][]int, src int, visitedNodes map[int]bool) int {
+	if _, exists := visitedNodes[src]; exists {
+		return 0
+	}
+
+	visitedNodes[src] = true
+	size := 1
+
+	for _, neighbor := range g[src] {
+		size += exploreSize(g, neighbor, visitedNodes)
+	}
+	return size
+}
+
 func LargestComponent() {
 
 	adjacencyList := map[int][]int{
 		0: {8, 1, 5},
-		1: {0},
-		5: {0, 8},
-		8: {0, 4},
+		1: {0, 5},
+		5: {0, 8, 1},
+		8: {0, 5},
 		2: {3, 4},
 		3: {2, 4},
 		4: {3, 2},
 	}
 
-	//     5
-	//     | ⟍
+	//    5
+	//  ⟋ | ⟍
 	// 1 - 0 - 8  size=4
 	//
 	// 4 - 2      size=3
@@ -107,7 +133,8 @@ func LargestComponent() {
 	// thus we should return 4
 
 	fmt.Println(adjacencyList)
-	fmt.Println(largestComponentBFS(adjacencyList))
-	fmt.Println(largestComponentDFS(adjacencyList))
+	fmt.Println("BFS gives", largestComponentBFS(adjacencyList))
+	fmt.Println("DFS1 gives", largestComponentDFS(adjacencyList))
+	fmt.Println("DFS2 gives", largestComponentDFSExploreSize(adjacencyList))
 
 }
