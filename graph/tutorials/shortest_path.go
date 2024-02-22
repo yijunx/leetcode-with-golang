@@ -20,6 +20,7 @@ func shortestPathAnotherWay(g map[string][]string, src string, dst string) int {
 		position string
 		distance int
 	}
+
 	queue := []positionAndDistance{}
 	visitedPositions := map[string]bool{}
 
