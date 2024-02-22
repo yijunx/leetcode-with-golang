@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	graphTutorial.LargestComponent()
+	graphTutorial.ShortestPath()
 }
