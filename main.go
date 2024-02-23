@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	graphTutorial.IslandCount()
+	graphTutorial.MinimumIsland()
 }
