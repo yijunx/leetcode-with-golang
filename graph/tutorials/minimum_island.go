@@ -81,12 +81,44 @@ func minimumIslandBFS(g [][]string) int {
 
 func minimumIslandDFS(g [][]string) int {
 
-	size := exploreGrid(g)
-	return size
+	visitedLocs := map[loc]bool{}
+	n, m := len(g), len(g[0])
+	minSize := n * m
+
+	for i, row := range g {
+		for j := range row {
+			size := exploreGridRecursiveToSetSize(g, i, j, visitedLocs, n, m)
+			if size > 0 {
+				minSize = min(size, minSize)
+			}
+		}
+	}
+
+	return minSize
 }
 
-func exploreGrid(g [][]string) int {
-	return 0
+func exploreGridRecursiveToSetSize(g [][]string, i int, j int, visitedLocs map[loc]bool, n int, m int) int {
+	if i < 0 || i == n {
+		return 0
+	}
+	if j < 0 || j == m {
+		return 0
+	}
+	if g[i][j] == "W" {
+		return 0
+	}
+	if _, exists := visitedLocs[loc{i: i, j: j}]; exists {
+		return 0
+	} else {
+		// mark we have visited here
+		visitedLocs[loc{i: i, j: j}] = true
+	}
+	size := 1
+	size += exploreGridRecursiveToSetSize(g, i+1, j, visitedLocs, n, m)
+	size += exploreGridRecursiveToSetSize(g, i-1, j, visitedLocs, n, m)
+	size += exploreGridRecursiveToSetSize(g, i, j+1, visitedLocs, n, m)
+	size += exploreGridRecursiveToSetSize(g, i, j-1, visitedLocs, n, m)
+	return size
 }
 
 func MinimumIsland() {
