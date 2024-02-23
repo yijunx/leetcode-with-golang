@@ -1,4 +1,4 @@
-package main
+package graph
 
 // graph is nodes + edges
 // directed graph, edge has directions
@@ -90,7 +90,7 @@ func bfs(a map[string][]string, startingLoc string) {
 	fmt.Println(result)
 }
 
-func main() {
+func GraphIntro() {
 
 	var adjacencyList map[string][]string = make(map[string][]string)
 

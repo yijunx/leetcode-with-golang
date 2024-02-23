@@ -1,9 +1,10 @@
 package main
 
 import (
-	graphTutorial "github.com/yijunx/leetcode-with-golang/graph/tutorials"
+	binaryTree "github.com/yijunx/leetcode-with-golang/binarytree"
 )
 
 func main() {
-	graphTutorial.MinimumIsland()
+
+	binaryTree.BinaryTreeIntro()
 }
