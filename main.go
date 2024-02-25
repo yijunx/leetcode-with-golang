@@ -6,5 +6,5 @@ import (
 
 func main() {
 
-	binaryTree.TreeMin()
+	binaryTree.TreeMaxPathSum()
 }
