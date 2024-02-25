@@ -5,3 +5,9 @@ type justANode struct {
 	left  *justANode
 	right *justANode
 }
+
+type numberNode struct {
+	val   int
+	left  *numberNode
+	right *numberNode
+}
