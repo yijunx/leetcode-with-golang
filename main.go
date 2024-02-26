@@ -1,10 +1,10 @@
 package main
 
 import (
-	binaryTree "github.com/yijunx/leetcode-with-golang/binarytree/tutorials"
+	linkedList "github.com/yijunx/leetcode-with-golang/linkedlist/tutorials"
 )
 
 func main() {
 
-	binaryTree.TreeMaxPathSum()
+	linkedList.GetNodeValue()
 }
