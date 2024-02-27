@@ -35,22 +35,41 @@ func zipperListsInterative(n1 *node, n2 *node) *node {
 }
 
 func zipperListsRecursive(n1 *node, n2 *node) *node {
-	resultNode := &node{}
-	travellingNode := resultNode
-	exploreLinkedListWithTravelingNode(n1, n2, travellingNode)
-	return resultNode.next
-}
 
-func exploreLinkedListWithTravelingNode(n1 *node, n2 *node, t *node) {
-	if n1 != nil && n2 != nil {
-		tempN1 := n1.next
-		tempN2 := n2.next
-		t.next = n1
-		t = t.next
-		t.next = n2
-		t = t.next
-		exploreLinkedListWithTravelingNode(tempN1, tempN2, t)
+	if n1 == nil && n2 == nil {
+		// both exhausted
+		return nil
 	}
+
+	if n1 == nil {
+		// n1 exhausted
+		return n2
+	}
+
+	if n2 == nil {
+		// n2 exhausted
+		return n1
+
+	}
+	head := n1
+
+	// suppose we have
+	// 1 2 3 4 5
+	// a b c d e
+
+	// 1 -> a -> next zipperListsRecursive{
+	//     2 3 4 5
+	//     b c d e
+	// }
+
+	// save the pointer
+	nextN1 := n1.next
+	nextN2 := n2.next
+	// something like this
+	n1.next = n2
+	n2.next = zipperListsRecursive(nextN1, nextN2)
+
+	return head
 }
 
 func ZipperLists() {
