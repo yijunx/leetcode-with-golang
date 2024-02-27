@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-
-	linkedList.GetNodeValue()
+	linkedList.ZipperLists()
 }

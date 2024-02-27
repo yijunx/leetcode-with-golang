@@ -2,19 +2,19 @@ package tutorials
 
 import "fmt"
 
-func findFromLinkedList(node *justANode, target string) bool {
-	if node == nil {
+func findFromLinkedList(n *node, target string) bool {
+	if n == nil {
 		return false
 	}
-	if node.val == target {
+	if n.val == target {
 		return true
 	}
-	return findFromLinkedList(node.next, target)
+	return findFromLinkedList(n.next, target)
 }
 
 func FindFromLinkedList() {
 	numbers := []string{"a", "v", "c", "f"}
-	a := stringSliceToLinkedList(numbers)
+	a := sliceToLinkedList(numbers)
 
 	fmt.Println(findFromLinkedList(a, "b"))
 	fmt.Println(findFromLinkedList(a, "f"))

@@ -2,34 +2,34 @@ package tutorials
 
 import "fmt"
 
-func getNodeValueRecursive(node *justANode, index int) string {
-	if node == nil {
+func getNodeValueRecursive(n *node, index int) any {
+	if n == nil {
 		return ""
 	}
 	if index == 0 {
-		return node.val
+		return n.val
 	}
 	// if node.val == target {
 	// 	return true
 	// }
 	// return findFromLinkedList(node.next, target)
-	return getNodeValueRecursive(node.next, index-1)
+	return getNodeValueRecursive(n.next, index-1)
 }
 
-func getNodeValueIterative(node *justANode, index int) string {
-	for node != nil {
+func getNodeValueIterative(n *node, index int) any {
+	for n != nil {
 		if index == 0 {
-			return node.val
+			return n.val
 		}
 		index -= 1
-		node = node.next
+		n = n.next
 	}
 	return ""
 }
 
 func GetNodeValue() {
 	strings := []string{"a", "v", "c", "f"}
-	a := stringSliceToLinkedList(strings)
+	a := sliceToLinkedList(strings)
 	fmt.Println(getNodeValueRecursive(a, 4))
 	fmt.Println(getNodeValueIterative(a, 4))
 

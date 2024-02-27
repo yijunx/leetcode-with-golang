@@ -2,71 +2,60 @@ package tutorials
 
 import "fmt"
 
-func sliceToLinkedList(numbers []int) *numberNode {
-	firstNumber, numbers := numbers[0], numbers[1:]
-	node := &numberNode{
-		val: firstNumber,
-	}
-	headNode := node
-	for _, number := range numbers {
-		newNode := &numberNode{
-			val: number,
-		}
-		node.next = newNode
-		node = newNode
-	}
-	return headNode
-}
-
-func stringSliceToLinkedList(strings []string) *justANode {
-	firstVal, strings := strings[0], strings[1:]
-	node := &justANode{
+func sliceToLinkedList[T any](anies []T) *node {
+	firstVal, anies := anies[0], anies[1:]
+	n := &node{
 		val: firstVal,
 	}
-	headNode := node
-	for _, val := range strings {
-		newNode := &justANode{
+	headNode := n
+	for _, val := range anies {
+		newNode := &node{
 			val: val,
 		}
-		node.next = newNode
-		node = newNode
+		n.next = newNode
+		n = newNode
 	}
 	return headNode
 }
 
-func linkedListToSliceIterative(node *numberNode) []int {
-	numbers := []int{}
-	for node != nil {
-		numbers = append(numbers, node.val)
-		node = node.next
+// func stringSliceToLinkedList(strings []string) *stringNode {
+// 	firstVal, strings := strings[0], strings[1:]
+// 	node := &stringNode{
+// 		val: firstVal,
+// 	}
+// 	headNode := node
+// 	for _, val := range strings {
+// 		newNode := &stringNode{
+// 			val: val,
+// 		}
+// 		node.next = newNode
+// 		node = newNode
+// 	}
+// 	return headNode
+// }
+
+func linkedListToSliceIterative(n *node) []any {
+	vals := []any{}
+	for n != nil {
+		vals = append(vals, n.val)
+		n = n.next
 	}
-	return numbers
+	return vals
 }
 
-func linkedListToSliceRecursive(node *numberNode, numbers []int) []int {
-	if node != nil {
-		// tail first
-		// return append(linkedListToSliceRecursive(node.next, numbers), node.val)
-		// head first, seems not so efficent??
-		return append([]int{node.val}, linkedListToSliceRecursive(node.next, numbers)...)
-	} else {
-		return numbers
-	}
-}
-
-func LinkedListToSliceRecursive2(node *numberNode) []int {
-	result := []int{}
-	exploreLinkedListWithResult(node, &result)
+func linkedListToSliceRecursive(n *node) []any {
+	result := []any{}
+	exploreLinkedListWithResult(n, &result)
 	return result
 }
 
-func exploreLinkedListWithResult(node *numberNode, result *[]int) {
+func exploreLinkedListWithResult(n *node, result *[]any) {
 	// just append things into result, return nothing
-	if node == nil {
+	if n == nil {
 		return
 	}
-	*result = append(*result, node.val)
-	exploreLinkedListWithResult(node.next, result)
+	*result = append(*result, n.val)
+	exploreLinkedListWithResult(n.next, result)
 }
 
 func LinkedListToSlice() {
@@ -74,6 +63,5 @@ func LinkedListToSlice() {
 	a := sliceToLinkedList(numbers)
 
 	fmt.Println(linkedListToSliceIterative(a))
-	fmt.Println(linkedListToSliceRecursive(a, []int{}))
-	fmt.Println(LinkedListToSliceRecursive2(a))
+	fmt.Println(linkedListToSliceRecursive(a))
 }
