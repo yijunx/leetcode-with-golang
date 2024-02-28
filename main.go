@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	recursion.MergeSort()
+	recursion.ReverseLinkedList()
 }
