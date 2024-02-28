@@ -1,9 +1,9 @@
 package main
 
 import (
-	linkedList "github.com/yijunx/leetcode-with-golang/linkedlist/tutorials"
+	recursion "github.com/yijunx/leetcode-with-golang/recursion/tutorials"
 )
 
 func main() {
-	linkedList.ZipperLists()
+	recursion.AddNumbers()
 }
