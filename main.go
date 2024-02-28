@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	recursion.AddNumbers()
+	recursion.MergeSort()
 }
