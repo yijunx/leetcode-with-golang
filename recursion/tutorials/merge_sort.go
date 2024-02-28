@@ -71,16 +71,16 @@ func partlyMergeSort(nums1 []int, nums2 []int) []int {
 }
 
 func mergeSortAnotherWay(nums []int) []int {
-	start, end := 0, len(nums)-1
+	start, end := 0, len(nums)
 	partlyMergeSortAnother(nums, start, end)
 	return nums
 }
 
 func partlyMergeSortAnother(nums []int, start int, end int) {
-	if start < end {
+	if start < end-1 {
 		mid := (start + end) / 2
 		partlyMergeSortAnother(nums, start, mid)
-		partlyMergeSortAnother(nums, mid+1, end)
+		partlyMergeSortAnother(nums, mid, end)
 		merge(nums, start, end, mid)
 	}
 }
@@ -88,9 +88,9 @@ func partlyMergeSortAnother(nums []int, start int, end int) {
 func merge(nums []int, start int, end int, mid int) {
 	result := []int{}
 	i := start
-	j := mid + 1
+	j := mid
 
-	for i <= mid && j <= end {
+	for i < mid && j < end {
 		if nums[i] < nums[j] {
 			result = append(result, nums[i])
 			i++
@@ -100,14 +100,11 @@ func merge(nums []int, start int, end int, mid int) {
 		}
 	}
 
-	for i <= mid {
-		result = append(result, nums[i])
-		i++
-
+	if i < mid {
+		result = append(result, nums[i:mid]...)
 	}
-	for j <= end {
-		result = append(result, nums[j])
-		j++
+	if j < end {
+		result = append(result, nums[j:end]...)
 	}
 
 	// copy back
@@ -117,20 +114,21 @@ func merge(nums []int, start int, end int, mid int) {
 
 	// well umm this is the key
 	// well rememner result does not start from zero position of the nums!!!!
-	for i = start; i <= end; i++ {
+	for i = start; i < end; i++ {
 		nums[i] = result[i-start]
 	}
 }
 
-// func playWithBinarySearch(nums []int, start int, end int) {
-// 	fmt.Println("start is", start, nums[start], "end is ", end, nums[end])
-// 	if start < end {
-// 		mid := (start + end) / 2
-// 		fmt.Println("mid is", mid)
-// 		playWithBinarySearch(nums, start, mid)
-// 		playWithBinarySearch(nums, mid+1, end)
-// 	}
-// }
+func playWithBinarySearch(nums []int, start int, end int) {
+	fmt.Println("start is", start, "end is ", end)
+	fmt.Println(nums[start:end])
+	if start < end-1 {
+		mid := (start + end) / 2
+		fmt.Println("mid is", mid)
+		playWithBinarySearch(nums, start, mid)
+		playWithBinarySearch(nums, mid, end)
+	}
+}
 
 func MergeSort() {
 	a := []int{4, 1, 3, 2, 0, -1, 7, 10, 9, 20, 0, 3, 4, 1}
@@ -145,8 +143,8 @@ func MergeSort() {
 	// merge(x, 0, 7, 4)
 	// fmt.Println(x)
 
-	// y := []int{0, 1, 2, 3, 4, 5, 6, 7, 8}
-	// playWithBinarySearch(y, 0, len(y)-1)
+	y := []int{0, 1, 2, 3, 4, 5, 6, 7, 8}
+	playWithBinarySearch(y, 0, len(y))
 	fmt.Println(mergeSortAnotherWay(a))
 
 	// fmt.Println(mergeSortedList([]int{1, 3, 5}, []int{2, 4, 6, 8}))
