@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	dp.CanSum()
+	dp.HowSum()
 }
