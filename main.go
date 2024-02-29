@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	recursion.ReverseLinkedList()
+	recursion.PrintAllLeafNodes()
 }
