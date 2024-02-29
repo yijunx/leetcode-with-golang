@@ -1,9 +1,9 @@
 package main
 
 import (
-	recursion "github.com/yijunx/leetcode-with-golang/recursion/tutorials"
+	dp "github.com/yijunx/leetcode-with-golang/dynamicprogramming/tutorials"
 )
 
 func main() {
-	recursion.PrintAllLeafNodes()
+	dp.CanSum()
 }
