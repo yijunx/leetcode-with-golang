@@ -6,8 +6,7 @@ import (
 
 func countConstruct(target string, materials []string) int {
 	memo := map[string]int{}
-	countConstructRecursive(target, materials, memo)
-	return memo[target]
+	return countConstructRecursive(target, materials, memo)
 }
 
 func countConstructRecursive(target string, materials []string, memo map[string]int) int {
@@ -41,5 +40,5 @@ func CountConstruct() {
 	fmt.Println(countConstruct("helloblueworld", []string{"hel", "llob", "world"}))
 	fmt.Println(countConstruct("poiuthusadf", []string{"poi", "u", "adf", "th", "s"}))
 	fmt.Println(countConstruct("helloblueworldz", []string{"h", "e", "l", "o", "blue", "world"}))
-	fmt.Println(countConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", []string{"e", "ee", "eee", "eeee", "eeeee", "eeeeee"}))
+	fmt.Println(countConstruct("enterapotentpot", []string{"a", "p", "enter", "ent", "ot", "o", "t"}))
 }

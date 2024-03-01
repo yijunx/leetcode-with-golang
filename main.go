@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	dp.CountConstruct()
+	dp.AllConstruct()
 }
