@@ -19,6 +19,7 @@ func allConstructRecursive(target string, materials []string, memo map[string][]
 		return val
 	}
 
+	result := [][]string{}
 	for _, material := range materials {
 		if len(target) >= len(material) {
 			// well other wise where is no way..
@@ -35,11 +36,13 @@ func allConstructRecursive(target string, materials []string, memo map[string][]
 					oneWayForTarget := []string{}
 					oneWayForTarget = append(oneWayForTarget, oneWayForRemainder...)
 					oneWayForTarget = append(oneWayForTarget, material)
-					memo[target] = append(memo[target], oneWayForTarget)
+					result = append(result, oneWayForTarget)
+					// memo[target] = append(memo[target], oneWayForTarget)
 				}
 			}
 		}
 	}
+	memo[target] = result
 	return memo[target]
 }
 
