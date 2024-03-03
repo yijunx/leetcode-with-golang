@@ -46,9 +46,51 @@ func howSumRecursive(target int, nums []int, memoHow map[int][]int, memoCan map[
 	}
 	return []int{}, false
 }
+
+func howSumTabu(target int, nums []int) []int {
+	// declare
+	dpHow := make([][]int, target+1)
+	dpCan := make([]bool, target+1)
+
+	dpCan[0] = true
+
+	// initialize
+	// for i := range dp {
+	// 	dp[i] = []int{}
+	// }
+	// dp[0] = []int{}
+
+	// for _, fff := range dp {
+	// 	fff = []int{}
+	// }
+
+	// loop
+	for currentTarget, howToAdd := range dpHow {
+		if !dpCan[currentTarget] {
+			continue
+		}
+		for _, num := range nums {
+			if currentTarget+num <= target {
+				if !dpCan[currentTarget+num] {
+					// if we have not arrived here before!!!
+					dpCan[currentTarget+num] = true
+					dpHow[currentTarget+num] = append(dpHow[currentTarget+num], howToAdd...)
+					dpHow[currentTarget+num] = append(dpHow[currentTarget+num], num)
+				}
+			}
+		}
+	}
+	return dpHow[target]
+}
+
 func HowSum() {
 	fmt.Println(howSum(23, []int{5, 8}))
 	fmt.Println(howSum(51, []int{2, 4}))
 	fmt.Println(howSum(300, []int{7, 14}))
 	fmt.Println(howSum(280, []int{7, 14}))
+
+	fmt.Println(howSumTabu(23, []int{5, 8}))
+	fmt.Println(howSumTabu(51, []int{2, 4}))
+	fmt.Println(howSumTabu(300, []int{7, 14}))
+	fmt.Println(howSumTabu(280, []int{7, 14}))
 }

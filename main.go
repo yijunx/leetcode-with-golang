@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	dp.Intro()
+	dp.CanConstruct()
 }

@@ -76,16 +76,39 @@ func canSumWithMemoDFS(target int, nums []int, memo map[int]bool) bool {
 	return false
 }
 
+func canSumTabu(target int, nums []int) bool {
+	// init the dp
+	dp := make([]bool, target+1)
+	// base case
+	dp[0] = true
+
+	// now we have a dp,
+	for i, val := range dp {
+		if !val {
+			continue
+		}
+		for _, num := range nums {
+			if i+num <= target {
+				dp[i+num] = true
+			}
+		}
+	}
+	return dp[target]
+}
+
 func CanSum() {
 	fmt.Println(canSum(23, []int{5, 8, 1}))
 	fmt.Println(canSum2(23, []int{5, 8, 1}))
 	fmt.Println(canSumWithMemo(23, []int{5, 8, 1}))
+	fmt.Println(canSumTabu(23, []int{5, 8, 1}))
 
 	fmt.Println(canSum(23, []int{2, 4, 6, 8, 10}))
 	fmt.Println(canSum2(23, []int{2, 4, 6, 8, 10}))
 	fmt.Println(canSumWithMemo(23, []int{2, 4, 6, 8, 10}))
+	fmt.Println(canSumTabu(23, []int{2, 4, 6, 8, 10}))
 
 	// fmt.Println(canSum(300, []int{7, 14})) // never ends..
 	// fmt.Println(canSum2(300, []int{7, 14})) // never ends
 	fmt.Println(canSumWithMemo(300, []int{7, 14})) // never ends..
+	fmt.Println(canSumTabu(300, []int{7, 14}))     // never ends..
 }
