@@ -1,9 +1,9 @@
 package main
 
 import (
-	dp "github.com/yijunx/leetcode-with-golang/dynamicprogramming/tutorials"
+	x "github.com/yijunx/leetcode-with-golang/stack/hard"
 )
 
 func main() {
-	dp.CanConstruct()
+	x.LargestRestangleInHisto()
 }

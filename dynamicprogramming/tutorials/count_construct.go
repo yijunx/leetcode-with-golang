@@ -66,6 +66,44 @@ func countConstructRecursive(target string, materials []string, memo map[string]
 	return memo[target]
 }
 
+func countConstructTabu(target string, materials []string) int {
+
+	dpCount := make([]int, len(target)+1)
+	dpCount[0] = 1
+
+	dpWays := make([][][]string, len(target)+1)
+	dpWays[0] = [][]string{{}}
+
+	for i := range target {
+		if dpCount[i] == 0 {
+			continue
+		}
+		for _, material := range materials {
+			if len(material)+i <= len(target) {
+				if material == target[i:i+len(material)] {
+					// if dpCount[i+len(material)] > 0 {
+					// 	// if we have been here
+					dpCount[i+len(material)] += dpCount[i]
+					// } else {
+					// 	dpCount[i+len(material)] = dpCount[i]
+
+					// }
+
+					for _, way := range dpWays[i] {
+						currWay := []string{}
+						currWay = append(currWay, way...)
+						currWay = append(currWay, material)
+						dpWays[i+len(material)] = append(dpWays[i+len(material)], currWay)
+					}
+				}
+			}
+		}
+	}
+	fmt.Println(dpCount)
+	fmt.Println(dpWays[len(target)])
+	return dpCount[len(target)]
+}
+
 func CountConstruct() {
 	fmt.Println(countConstruct("purple", []string{"purp", "p", "ur", "le", "purpl"}))
 	fmt.Println(countConstructBFS("purple", []string{"purp", "p", "ur", "le", "purpl"}))
@@ -73,5 +111,9 @@ func CountConstruct() {
 	// fmt.Println(countConstruct("helloblueworld", []string{"hel", "llob", "world"}))
 	// fmt.Println(countConstruct("poiuthusadf", []string{"poi", "u", "adf", "th", "s"}))
 	// fmt.Println(countConstruct("helloblueworldz", []string{"h", "e", "l", "o", "blue", "world"}))
-	// fmt.Println(countConstruct("enterapotentpot", []string{"a", "p", "enter", "ent", "ot", "o", "t"}))
+	fmt.Println(countConstruct("enterapotentpot", []string{"a", "p", "enter", "ent", "ot", "o", "t"}))
+
+	fmt.Println(countConstructTabu("purple", []string{"purp", "p", "ur", "le", "purpl"}))
+	fmt.Println(countConstructTabu("enterapotentpot", []string{"a", "p", "enter", "ent", "ot", "o", "t"}))
+
 }

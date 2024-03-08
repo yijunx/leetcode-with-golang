@@ -32,26 +32,28 @@ func canConstructRecursive(target string, materials []string, memo map[string]bo
 
 func canContructTabu(target string, materials []string) bool {
 	// dpResults := make([][]string, len(target)+1)
-	dpConstructed := make([]string, len(target)+1)
+	// dpConstructed := make([]string, len(target)+1)
 	dpCan := make([]bool, len(target)+1)
-	dpConstructed[0] = ""
+	// dpConstructed[0] = ""
 	dpCan[0] = true
 
-	for length, constructed := range dpConstructed {
-		if !dpCan[length] {
+	for i := range target {
+		if !dpCan[i] {
 			continue
 		}
 
 		for _, material := range materials {
-			if len(material)+len(constructed) <= len(target) {
+			if len(material)+i <= len(target) {
 				// check if we have been here with the material
-				if dpCan[len(material)+len(constructed)] {
+				if dpCan[len(material)+i] {
 					continue
 				}
 				// have not been here
-				if constructed+material == target[:len(material)+len(constructed)] {
-					dpConstructed[len(material)+len(constructed)] = constructed + material
-					dpCan[len(material)+len(constructed)] = true
+				// this compare can be shorter like below!
+				// if material == target[i:i+len(material)]
+				if target[:i]+material == target[:len(material)+i] {
+					//target[:len(material)+i] = target[:i] + material
+					dpCan[len(material)+i] = true
 				}
 			}
 		}
