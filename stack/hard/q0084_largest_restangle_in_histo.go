@@ -11,7 +11,7 @@ func largestRectangleArea(heights []int) int {
 
 	for i := 0; i < n; i++ {
 
-		for len(stack) > 0 && heights[stack[len(stack)-1]] > heights[i] {
+		for len(stack) > 0 && heights[stack[len(stack)-1]] >= heights[i] {
 			// pop all those bigger than me
 			stack = stack[:len(stack)-1]
 		}
@@ -31,7 +31,7 @@ func largestRectangleArea(heights []int) int {
 	// pop all...
 	stack = []int{}
 	for i := n - 1; i >= 0; i-- {
-		for len(stack) > 0 && heights[stack[len(stack)-1]] > heights[i] {
+		for len(stack) > 0 && heights[stack[len(stack)-1]] >= heights[i] {
 			// pop all those bigger than me
 			stack = stack[:len(stack)-1]
 		}
@@ -60,6 +60,10 @@ func largestRectangleArea(heights []int) int {
 func LargestRestangleInHisto() {
 
 	heights := []int{2, 1, 5, 6, 2, 3}
+
+	fmt.Println(largestRectangleArea(heights))
+
+	heights = []int{2, 1, 5, 5, 2, 3}
 
 	fmt.Println(largestRectangleArea(heights))
 

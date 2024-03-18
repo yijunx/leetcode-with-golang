@@ -1,4 +1,4 @@
-package main
+package medium
 
 import "fmt"
 
@@ -20,14 +20,16 @@ func sliceToListNode(s []int) *listNode {
 }
 
 func printListNode(l *listNode) {
-	fmt.Println("Printing a list node")
+	n := l
+	res := []int{}
 	for {
-		if l == nil {
+		if n == nil {
 			break
 		}
-		fmt.Println(l.Val)
-		l = l.Next
+		res = append(res, n.Val)
+		n = n.Next
 	}
+	fmt.Println("list node:", res)
 }
 
 func addTwoNumbers(l1 *listNode, l2 *listNode) *listNode {
