@@ -1,9 +1,10 @@
 package main
 
 import (
-	x "github.com/yijunx/leetcode-with-golang/recursion/medium"
+	x "github.com/yijunx/leetcode-with-golang/stack/medium"
 )
 
 func main() {
-	x.CombinationSum2()
+	x.RemoveKDigits()
+
 }
