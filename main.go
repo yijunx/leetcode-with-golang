@@ -1,10 +1,9 @@
 package main
 
 import (
-	x "github.com/yijunx/leetcode-with-golang/stack/medium"
+	x "github.com/yijunx/leetcode-with-golang/dynamicprogramming/tutorials"
 )
 
 func main() {
-	x.RemoveKDigits()
-
+	x.HowSum()
 }

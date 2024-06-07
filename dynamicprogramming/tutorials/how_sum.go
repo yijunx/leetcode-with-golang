@@ -88,6 +88,7 @@ func HowSum() {
 	fmt.Println(howSum(51, []int{2, 4}))
 	fmt.Println(howSum(300, []int{7, 14}))
 	fmt.Println(howSum(280, []int{7, 14}))
+	fmt.Println(howSum(5, []int{1,2,5}))
 
 	fmt.Println(howSumTabu(23, []int{5, 8}))
 	fmt.Println(howSumTabu(51, []int{2, 4}))
